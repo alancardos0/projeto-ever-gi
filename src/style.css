@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-family: sans-serif;
+  color: #030307;
+  margin-left: 7%;
+}
+
+p {
+  font-family: sans-serif;
+  color: #0a0505;
+  margin-left: 10%;
+}
+
+fieldset {
+  border: 0;
+}
+
+body {
+  background-color: #f0f8ff;
+  font-family: sans-serif;
+  font-size: 1em;
+  color: #0e0707;
+  margin-left: 36%;
+  margin-top: 2%;
+  justify-content: center;
+}
+
+input,
+textarea,
+button {
+  border-radius: 5px;
+}
+
+.campo {
+  margin-bottom: 1em;
+}
+
+.campo label {
+  margin-bottom: 0.2em;
+  color: black;
+  display: block;
+}
+
+.campo input[type="text"],
+.campo input [type="email"],
+.campo input [type="cpf"],
+.campo input [type="nomeDaEmpresa"],
+.campo input [type="data"],
+.campo input [type="campo"] {
+  padding: 0.2em;
+  border: 1px solid black;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  display: block;
+}
+
+.campo input:focus,
+.campo textarea:focus {
+  background: seashell;
+}
+
+button {
+  font-size: 1.2em;
+  background: silver;
+  border: 0;
+  margin-bottom: 1em;
+  color: #ffffff;
+  padding: 0.2em 0.6em;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 90%;
+  left: 90%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+button:hover {
+  background: #ccbbff;
+  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.2);
+  text-shadow: none;
+}
