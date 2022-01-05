@@ -14,57 +14,87 @@
       <br />
     </div>
     <ul id="usuarios"></ul>
-    <form>
-      <fieldset>
-        <div class="campo">
-          <label>Nome</label>
-          <input type="text" name="name" id="name" required />
-        </div>
 
-        <div class="campo">
-          <label>Numero do Certificado</label>
-          <input
-            type="text"
-            name="numeroCertificado"
-            id="numeroCertificado"
-            required
-          />
-        </div>
-
-        <div class="campo">
-          <label>CPF </label>
-          <input type="text" name="cpf" id="cpf" required />
-        </div>
-
-        <div class="campo">
-          <label>Telefone</label>
-          <input type="text" name="telefone" id="telefone" required />
-        </div>
-
-        <div class="campo">
-          <label>Nome da Empresa</label>
-          <input type="text" name="empresa" id="nomeDaEmpresa" required />
-        </div>
-
-        <div class="campo">
-          <label>Data da Ligação</label>
-          <input type="datetime" name="data" id="data" required />
-        </div>
-      </fieldset>
-
+    <fieldset>
       <div class="campo">
-        <br />
-        <label>Observação</label>
-        <textarea
-          row="6"
-          name="observacao"
-          id="observacao"
-          style="width: 26em"
-        ></textarea>
+        <label>Nome</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Digite o seu Nome"
+          required
+        />
       </div>
 
-      <button onclick="quandoClicar()">Enviar</button>
-    </form>
+      <div class="campo">
+        <label>Numero do Certificado</label>
+        <input
+          type="text"
+          name="numeroCertificado"
+          id="numeroCertificado"
+          placeholder="Digite o Certificado"
+          required
+        />
+      </div>
+
+      <div class="campo">
+        <label>CPF </label>
+        <input
+          type="text"
+          name="cpf"
+          id="cpf"
+          placeholder="000.000.000-00"
+          required
+        />
+      </div>
+
+      <div class="campo">
+        <label>Telefone</label>
+        <input
+          type="text"
+          name="telefone"
+          id="telefone"
+          placeholder="(00)900000000"
+          required
+        />
+      </div>
+
+      <div class="campo">
+        <label>Nome da Empresa</label>
+        <input
+          type="text"
+          name="empresa"
+          id="nomeDaEmpresa"
+          placeholder="Empresa"
+          required
+        />
+      </div>
+
+      <div class="campo">
+        <label>Data da Ligação</label>
+        <input
+          type="datetime"
+          name="data"
+          id="data"
+          placeholder="Data"
+          required
+        />
+      </div>
+    </fieldset>
+
+    <div class="campo">
+      <br />
+      <label>Observação</label>
+      <textarea
+        row="6"
+        name="observacao"
+        id="observacao"
+        style="width: 26em"
+      ></textarea>
+    </div>
+
+    <button onclick="quandoClicar()">Enviar</button>
 
     <script src="src/script.js"></script>
   </body>
