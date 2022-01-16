@@ -1,3 +1,7 @@
+const cron = require("node-cron");
+require("dotenv").config();
+const sgMail = require("@sendgrid/mail");
+
 function quandoClicar() {
   const users = document.getElementById("usuarios");
   const name = document.getElementById("name").value;
@@ -13,7 +17,41 @@ function quandoClicar() {
   validarCpf(cpf);
   validarTelefone(telefone);
   validacaoDeNomes(name, nomeDaEmpresa);
-  validarData(data, name, observacao);
+  validarData(data);
+
+  sgMail.setApiKey(process.env.api_key);
+
+  const msg = {
+    to: "alanmatheus1542@gmail.com",
+    from: "alammateus077@gmail.com",
+    subject: "Sending with SendGrid is Fun",
+    text: "and easy to do anywhere, even with Node.js",
+    html: "and easy to do anywhere, even with Node.js",
+  };
+
+  function validarData(date) {
+    const dataAtual = new Date(date);
+    const minutes = dataAtual.getMinutes();
+    const hours = dataAtual.getHours();
+    const days = dataAtual.getDate();
+    const months = dataAtual.getMonth() + 1;
+    const dayOfWeek = dataAtual.getDay();
+
+    return `${minutes} ${hours} ${days} ${months} ${dayOfWeek}`;
+  }
+  const cronRegexp = validarData(data);
+  console.log(cronRegexp);
+
+  cron.schedule(cronRegexp, () => {
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log("Email enviado");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
 
   const text = `Name: ${name}, Numero do Certificado: ${numeroCertificado}, CPF: ${cpf},Telefone: ${telefone}, Nome da Empresa ${nomeDaEmpresa},Data: ${data}, Observação: ${observacao}`;
   //criar lista
@@ -60,27 +98,5 @@ function validarTelefone(parameter) {
   if (telefoneRegexp.test(parameter) && x) {
   } else {
     throw alert("Número incorreto!");
-  }
-}
-
-function validarData(data, nomePessoa, obs) {
-  const date = new Date();
-  let dia = date.getDate();
-  let mes = date.getMonth() + 1;
-  let ano = date.getFullYear();
-
-  if (dia < 10) {
-    dia = "0" + dia;
-  }
-  if (mes < 10) {
-    mes = "0" + mes;
-  }
-
-  let dataFormatada = dia + "/" + mes + "/" + ano;
-
-  if (dataFormatada === data) {
-    alert(`Dia de ligar para o Cliente ${nomePessoa}  ${obs}`);
-  } else {
-    alert("Cliente Agendado");
   }
 }
