@@ -1,9 +1,10 @@
+import { getClient, insertClient } from "./database.js";
+
 const cron = require("node-cron");
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
 
 function quandoClicar() {
-  const users = document.getElementById("usuarios");
   const name = document.getElementById("name").value;
   const numeroCertificado = document.getElementById("numeroCertificado").value;
   const cpf = document.getElementById("cpf").value;
@@ -18,6 +19,16 @@ function quandoClicar() {
   validarTelefone(telefone);
   validacaoDeNomes(name, nomeDaEmpresa);
   validarData(data);
+  getClient();
+  insertClient(
+    name,
+    numeroCertificado,
+    cpf,
+    telefone,
+    nomeDaEmpresa,
+    data,
+    observacao
+  );
 
   sgMail.setApiKey(process.env.api_key);
 
@@ -52,19 +63,8 @@ function quandoClicar() {
         console.log(error);
       });
   });
-
-  const text = `Name: ${name}, Numero do Certificado: ${numeroCertificado}, CPF: ${cpf},Telefone: ${telefone}, Nome da Empresa ${nomeDaEmpresa},Data: ${data}, Observação: ${observacao}`;
-  //criar lista
-  let li = document.createElement("li");
-  li.innerText = text;
-  users.appendChild(li);
-  colocarNoLocalStorage(text);
 }
 
-function colocarNoLocalStorage(value) {
-  let criarLocalStorage = localStorage.setItem("key", value);
-  return criarLocalStorage;
-}
 //funções de validação!
 function validacaoDeNomes(nome, nomeDaEmpresa) {
   let validaNomeeEmpresa = /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]$/;
