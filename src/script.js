@@ -1,10 +1,10 @@
-import { getClient, insertClient } from "./database.js";
+const { getClient, insertClient } = require("./src/database.js");
 
 const cron = require("node-cron");
 require("dotenv").config();
 const sgMail = require("@sendgrid/mail");
 
-function quandoClicar() {
+async function quandoClicar() {
   const name = document.getElementById("name").value;
   const numeroCertificado = document.getElementById("numeroCertificado").value;
   const cpf = document.getElementById("cpf").value;
@@ -19,8 +19,7 @@ function quandoClicar() {
   validarTelefone(telefone);
   validacaoDeNomes(name, nomeDaEmpresa);
   validarData(data);
-  getClient();
-  insertClient(
+  await insertClient(
     name,
     numeroCertificado,
     cpf,
@@ -33,11 +32,11 @@ function quandoClicar() {
   sgMail.setApiKey(process.env.api_key);
 
   const msg = {
-    to: "alanmatheus1542@gmail.com",
+    to: "everton@evergi.com.br",
     from: "alammateus077@gmail.com",
-    subject: "Sending with SendGrid is Fun",
-    text: "and easy to do anywhere, even with Node.js",
-    html: "and easy to do anywhere, even with Node.js",
+    subject: "Dia de ligar para o Cliente!",
+    text: ``,
+    html: `Olá EverGi, hoje é dia de ligar para ${name}, numero do certificado é : ${numeroCertificado}, CPF: ${cpf}, telefone para contato é : ${telefone},nome da Empresa:${nomeDaEmpresa} e observação: ${observacao}.`,
   };
 
   function validarData(date) {
@@ -83,7 +82,7 @@ function validarCertificado(parametro) {
 }
 
 function validarCpf(parameter) {
-  let cpfRegeXp = /^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$/;
+  let cpfRegeXp = /^[0-9]{3}[0-9]{3}[0-9]{3}[0-9]{2}$/;
   let x = parseFloat(parameter, 10);
   if (cpfRegeXp.test(parameter) && x) {
     return true;

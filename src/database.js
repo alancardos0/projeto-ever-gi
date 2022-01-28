@@ -8,22 +8,18 @@ const client = new pg.Client({
   port: 5432,
 });
 
-export async function getClient() {
+async function getClient() {
   try {
-    console.log("Iniciando conexão!");
     await client.connect();
-    console.log("Conexão realizada com sucesso!");
     const resultado = await client.query("select * from clientes");
     console.table(resultado.rows);
+    await client.end();
   } catch (ex) {
     console.log("Ocorreu o erro no getClient. ERRO" + ex);
-  } finally {
-    await client.end();
-    console.log("Cliente desconectado");
   }
 }
 
-export async function insertClient(
+async function insertClient(
   name,
   numeroCertificado,
   cpf,
@@ -35,16 +31,16 @@ export async function insertClient(
   try {
     console.log("Iniciando conexão!");
     await client.connect();
-    console.log("Conexão realizada com sucesso!");
-    await client.query(
-      `insert ${name} ${numeroCertificado} ${cpf} ${telefone} ${nomeDaEmpresa} ${data} ${observacao} * from clientes`
+    console.log(
+      `insert into clientes (nome,numeroCertificado,cpf,telefone,nomeDaEmpresa,data,observacao) values (${name}, ${numeroCertificado}, ${cpf}, ${telefone}, ${nomeDaEmpresa}, ${data}, ${observacao})`
     );
+    await client.query(
+      `insert into clientes (nome,numeroCertificado,cpf,telefone,nomeDaEmpresa,data,observacao) values ('${name}', '${numeroCertificado}', '${cpf}', '${telefone}', '${nomeDaEmpresa}', '${data}', '${observacao}')`
+    );
+    await client.end();
   } catch (ex) {
     console.log("Ocorreu o erro no insertClient. ERRO" + ex);
-  } finally {
-    await client.end();
-    console.log("Cliente desconectado");
   }
 }
 
-module.exports = client;
+module.exports = { client, getClient, insertClient };
